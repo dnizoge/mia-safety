@@ -1,0 +1,193 @@
+2026-01-27 20:39:26 | INFO     | mia.api | ============================================================
+2026-01-27 20:39:26 | INFO     | mia.api | 🚀 MIA Backend API Starting...
+2026-01-27 20:39:26 | INFO     | mia.api | ============================================================
+2026-01-27 20:39:26 | INFO     | mia.api | 📦 Initializing database...
+2026-01-27 20:39:26 | INFO     | mia.api.db | Database initialized: ./data/mia_violations.db
+2026-01-27 20:39:26 | INFO     | mia.api |    Database ready ✓
+2026-01-27 20:39:26 | INFO     | mia.api | 🤖 Loading AI model...
+2026-01-27 20:39:26 | INFO     | mia.api.state | Model loaded on mps
+2026-01-27 20:39:26 | INFO     | mia.api |    Model loaded: weights/best_mia.pt ✓
+2026-01-27 20:39:26 | INFO     | mia.api |    Directories initialized ✓
+2026-01-27 20:39:26 | INFO     | mia.api | ============================================================
+2026-01-27 20:39:26 | INFO     | mia.api | ✅ MIA Backend API Ready!
+2026-01-27 20:39:26 | INFO     | mia.api |    API Docs: http://0.0.0.0:8000/docs
+2026-01-27 20:39:26 | INFO     | mia.api | ============================================================
+2026-01-27 20:40:17 | INFO     | mia.api | GET /dashboard | Status: 200 | Duration: 1.0ms
+2026-01-27 20:40:18 | INFO     | mia.api | GET /api/v1/health | Status: 200 | Duration: 1.2ms
+2026-01-27 20:40:18 | INFO     | mia.api | GET /api/v1/violations/stats | Status: 200 | Duration: 1.9ms
+2026-01-27 20:40:18 | INFO     | mia.api | GET /favicon.ico | Status: 404 | Duration: 0.3ms
+2026-01-27 20:43:48 | INFO     | mia.api | POST /api/v1/detect/video | Status: 200 | Duration: 32.2ms
+2026-01-27 20:43:50 | INFO     | mia.api | GET /api/v1/detect/video/e165d79b | Status: 200 | Duration: 0.5ms
+2026-01-27 20:43:52 | INFO     | mia.api | GET /api/v1/detect/video/e165d79b | Status: 200 | Duration: 0.2ms
+2026-01-27 20:43:54 | INFO     | mia.api | GET /api/v1/detect/video/e165d79b | Status: 200 | Duration: 0.2ms
+2026-01-27 20:43:56 | INFO     | mia.api | GET /api/v1/detect/video/e165d79b | Status: 200 | Duration: 0.2ms
+2026-01-27 20:43:58 | INFO     | mia.api | GET /api/v1/detect/video/e165d79b | Status: 200 | Duration: 0.2ms
+2026-01-27 20:44:00 | INFO     | mia.api | GET /api/v1/detect/video/e165d79b | Status: 200 | Duration: 0.2ms
+2026-01-27 20:44:00 | INFO     | mia.api | GET /outputs/processed_e165d79b.mp4 | Status: 206 | Duration: 2.5ms
+2026-01-27 20:44:00 | INFO     | mia.api | GET /outputs/processed_e165d79b.mp4 | Status: 206 | Duration: 0.6ms
+2026-01-27 20:44:00 | INFO     | mia.api | GET /outputs/processed_e165d79b.mp4 | Status: 304 | Duration: 0.4ms
+2026-01-27 20:44:00 | INFO     | mia.api | GET /outputs/processed_e165d79b.mp4 | Status: 206 | Duration: 0.6ms
+2026-01-27 20:46:40 | INFO     | mia.api | GET /dashboard | Status: 200 | Duration: 1.1ms
+2026-01-27 20:46:40 | INFO     | mia.api | GET /api/v1/health | Status: 200 | Duration: 0.4ms
+2026-01-27 20:46:40 | INFO     | mia.api | GET /api/v1/violations/stats | Status: 200 | Duration: 1.2ms
+2026-01-27 20:46:44 | INFO     | mia.api | POST /api/v1/detect/video | Status: 200 | Duration: 38.2ms
+2026-01-27 20:46:46 | INFO     | mia.api | GET /api/v1/detect/video/660303dc | Status: 200 | Duration: 0.2ms
+2026-01-27 20:46:48 | INFO     | mia.api | GET /api/v1/detect/video/660303dc | Status: 200 | Duration: 0.2ms
+2026-01-27 20:46:50 | INFO     | mia.api | GET /api/v1/detect/video/660303dc | Status: 200 | Duration: 0.2ms
+2026-01-27 20:46:52 | INFO     | mia.api | GET /api/v1/detect/video/660303dc | Status: 200 | Duration: 0.2ms
+2026-01-27 20:46:52 | INFO     | mia.api | GET /outputs/processed_660303dc.mp4 | Status: 206 | Duration: 0.4ms
+2026-01-27 20:46:52 | INFO     | mia.api | GET /outputs/processed_660303dc.mp4 | Status: 206 | Duration: 0.4ms
+2026-01-27 20:46:52 | INFO     | mia.api | GET /outputs/processed_660303dc.mp4 | Status: 304 | Duration: 0.4ms
+2026-01-27 20:46:52 | INFO     | mia.api | GET /outputs/processed_660303dc.mp4 | Status: 206 | Duration: 0.4ms
+2026-01-28 09:13:10 | INFO     | mia.api | GET /dashboard | Status: 200 | Duration: 1.1ms
+2026-01-28 09:18:01 | INFO     | mia.api | 🛑 MIA Backend API Shutting down...
+2026-01-28 09:18:01 | INFO     | mia.api.db | Database connection closed
+2026-01-28 09:18:01 | INFO     | mia.api | 👋 Shutdown complete
+2026-01-28 09:18:12 | INFO     | mia.api | ============================================================
+2026-01-28 09:18:12 | INFO     | mia.api | 🚀 MIA Backend API Starting...
+2026-01-28 09:18:12 | INFO     | mia.api | ============================================================
+2026-01-28 09:18:12 | INFO     | mia.api | 📦 Initializing database...
+2026-01-28 09:18:12 | INFO     | mia.api.db | Database initialized: ./data/mia_violations.db
+2026-01-28 09:18:12 | INFO     | mia.api |    Database ready ✓
+2026-01-28 09:18:12 | INFO     | mia.api | 🤖 Loading AI model...
+2026-01-28 09:18:12 | INFO     | mia.api.state | Model loaded on mps
+2026-01-28 09:18:12 | INFO     | mia.api |    Model loaded: weights/best_mia.pt ✓
+2026-01-28 09:18:12 | INFO     | mia.api |    Directories initialized ✓
+2026-01-28 09:18:12 | INFO     | mia.api | ============================================================
+2026-01-28 09:18:12 | INFO     | mia.api | ✅ MIA Backend API Ready!
+2026-01-28 09:18:12 | INFO     | mia.api |    API Docs: http://0.0.0.0:8000/docs
+2026-01-28 09:18:12 | INFO     | mia.api | ============================================================
+2026-01-28 09:47:19 | INFO     | mia.api | POST /api/v1/detect/video | Status: 200 | Duration: 151.2ms
+2026-01-28 09:47:19 | INFO     | mia.api | GET /api/v1/detect/video/38745b62 | Status: 200 | Duration: 2.9ms
+2026-01-28 09:47:20 | INFO     | mia.api | GET /api/v1/detect/video/38745b62 | Status: 200 | Duration: 0.5ms
+2026-01-28 09:47:21 | INFO     | mia.api | GET /api/v1/detect/video/38745b62 | Status: 200 | Duration: 0.9ms
+2026-01-28 09:47:22 | INFO     | mia.api | GET /api/v1/detect/video/38745b62 | Status: 200 | Duration: 21.0ms
+2026-01-28 09:47:23 | INFO     | mia.api | GET /api/v1/detect/video/38745b62 | Status: 200 | Duration: 0.5ms
+2026-01-28 09:47:24 | INFO     | mia.api | GET /api/v1/detect/video/38745b62 | Status: 200 | Duration: 1.2ms
+2026-01-28 09:47:25 | INFO     | mia.api | GET /api/v1/detect/video/38745b62 | Status: 200 | Duration: 0.5ms
+2026-01-28 09:47:26 | INFO     | mia.api | GET /api/v1/detect/video/38745b62 | Status: 200 | Duration: 2.3ms
+2026-01-28 09:47:27 | INFO     | mia.api | GET /api/v1/detect/video/38745b62 | Status: 200 | Duration: 3.7ms
+2026-01-28 09:47:28 | INFO     | mia.api | GET /api/v1/detect/video/38745b62 | Status: 200 | Duration: 1.1ms
+2026-01-28 09:47:29 | INFO     | mia.api | GET /api/v1/detect/video/38745b62 | Status: 200 | Duration: 0.4ms
+2026-01-28 09:47:30 | INFO     | mia.api | GET /api/v1/detect/video/38745b62 | Status: 200 | Duration: 0.4ms
+2026-01-28 09:47:31 | INFO     | mia.api | GET /api/v1/detect/video/38745b62 | Status: 200 | Duration: 0.4ms
+2026-01-28 09:47:32 | INFO     | mia.api | GET /api/v1/detect/video/38745b62 | Status: 200 | Duration: 1.3ms
+2026-01-28 09:47:33 | INFO     | mia.api | GET /api/v1/detect/video/38745b62 | Status: 200 | Duration: 0.6ms
+2026-01-28 09:47:34 | INFO     | mia.api | GET /api/v1/detect/video/38745b62 | Status: 200 | Duration: 3.7ms
+2026-01-28 09:47:35 | INFO     | mia.api | GET /api/v1/detect/video/38745b62 | Status: 200 | Duration: 0.5ms
+2026-01-28 09:47:36 | INFO     | mia.api | GET /api/v1/detect/video/38745b62 | Status: 200 | Duration: 0.6ms
+2026-01-28 09:47:37 | INFO     | mia.api | GET /api/v1/detect/video/38745b62 | Status: 200 | Duration: 1.7ms
+2026-01-28 09:47:38 | INFO     | mia.api | GET /api/v1/detect/video/38745b62 | Status: 200 | Duration: 0.4ms
+2026-01-28 09:47:39 | INFO     | mia.api | GET /api/v1/detect/video/38745b62 | Status: 200 | Duration: 0.7ms
+2026-01-28 09:47:40 | INFO     | mia.api | GET /api/v1/detect/video/38745b62 | Status: 200 | Duration: 0.7ms
+2026-01-28 09:47:41 | INFO     | mia.api | GET /api/v1/detect/video/38745b62 | Status: 200 | Duration: 0.7ms
+2026-01-28 09:47:42 | INFO     | mia.api | GET /api/v1/detect/video/38745b62 | Status: 200 | Duration: 1.9ms
+2026-01-28 09:47:43 | INFO     | mia.api | GET /api/v1/detect/video/38745b62 | Status: 200 | Duration: 1.3ms
+2026-01-28 09:47:44 | INFO     | mia.api | GET /api/v1/detect/video/38745b62 | Status: 200 | Duration: 4.5ms
+2026-01-28 09:47:45 | INFO     | mia.api | GET /api/v1/detect/video/38745b62 | Status: 200 | Duration: 0.5ms
+2026-01-28 09:47:46 | INFO     | mia.api | GET /api/v1/detect/video/38745b62 | Status: 200 | Duration: 3.1ms
+2026-01-28 09:47:47 | INFO     | mia.api | GET /api/v1/detect/video/38745b62 | Status: 200 | Duration: 0.5ms
+2026-01-28 09:47:48 | INFO     | mia.api | GET /api/v1/detect/video/38745b62 | Status: 200 | Duration: 0.6ms
+2026-01-28 09:47:49 | INFO     | mia.api | GET /api/v1/detect/video/38745b62 | Status: 200 | Duration: 1.4ms
+2026-01-28 09:47:50 | INFO     | mia.api | GET /api/v1/detect/video/38745b62 | Status: 200 | Duration: 2.4ms
+2026-01-28 09:47:51 | INFO     | mia.api | GET /api/v1/detect/video/38745b62 | Status: 200 | Duration: 1.2ms
+2026-01-28 09:47:52 | INFO     | mia.api | GET /api/v1/detect/video/38745b62 | Status: 200 | Duration: 1.2ms
+2026-01-28 09:47:53 | INFO     | mia.api | GET /api/v1/detect/video/38745b62 | Status: 200 | Duration: 6.0ms
+2026-01-28 09:47:54 | INFO     | mia.api | GET /api/v1/detect/video/38745b62 | Status: 200 | Duration: 2.5ms
+2026-01-28 09:47:55 | INFO     | mia.api | GET /api/v1/detect/video/38745b62 | Status: 200 | Duration: 1.0ms
+2026-01-28 09:47:56 | INFO     | mia.api | GET /api/v1/detect/video/38745b62 | Status: 200 | Duration: 2.3ms
+2026-01-28 09:47:57 | INFO     | mia.api | GET /api/v1/detect/video/38745b62 | Status: 200 | Duration: 0.6ms
+2026-01-28 09:47:58 | INFO     | mia.api | GET /api/v1/detect/video/38745b62 | Status: 200 | Duration: 0.8ms
+2026-01-28 09:47:59 | INFO     | mia.api | GET /api/v1/detect/video/38745b62 | Status: 200 | Duration: 1.0ms
+2026-01-28 09:48:00 | INFO     | mia.api | GET /api/v1/detect/video/38745b62 | Status: 200 | Duration: 16.5ms
+2026-01-28 09:48:01 | INFO     | mia.api | GET /api/v1/detect/video/38745b62 | Status: 200 | Duration: 2.1ms
+2026-01-28 09:48:03 | INFO     | mia.api | GET /api/v1/detect/video/38745b62 | Status: 200 | Duration: 1.1ms
+2026-01-28 09:48:04 | INFO     | mia.api | GET /api/v1/detect/video/38745b62 | Status: 200 | Duration: 0.5ms
+2026-01-28 09:48:05 | INFO     | mia.api | GET /api/v1/detect/video/38745b62 | Status: 200 | Duration: 8.4ms
+2026-01-28 09:48:06 | INFO     | mia.api | GET /api/v1/detect/video/38745b62 | Status: 200 | Duration: 5.3ms
+2026-01-28 09:48:07 | INFO     | mia.api | GET /api/v1/detect/video/38745b62 | Status: 200 | Duration: 2.3ms
+2026-01-28 09:48:08 | INFO     | mia.api | GET /api/v1/detect/video/38745b62 | Status: 200 | Duration: 26.8ms
+2026-01-28 09:48:08 | INFO     | mia.api | GET /outputs/processed_38745b62.mp4 | Status: 206 | Duration: 20.0ms
+2026-01-28 09:48:08 | INFO     | mia.api | GET /outputs/processed_38745b62.mp4 | Status: 206 | Duration: 2.4ms
+2026-01-28 09:48:08 | INFO     | mia.api | GET /outputs/processed_38745b62.mp4 | Status: 304 | Duration: 1.7ms
+2026-01-28 09:48:08 | INFO     | mia.api | GET /outputs/processed_38745b62.mp4 | Status: 206 | Duration: 2.6ms
+2026-01-28 10:30:40 | INFO     | mia.api | 🛑 MIA Backend API Shutting down...
+2026-01-28 10:30:40 | INFO     | mia.api.db | Database connection closed
+2026-01-28 10:30:40 | INFO     | mia.api | 👋 Shutdown complete
+2026-01-28 10:30:49 | INFO     | mia.api | ============================================================
+2026-01-28 10:30:49 | INFO     | mia.api | 🚀 MIA Backend API Starting...
+2026-01-28 10:30:49 | INFO     | mia.api | ============================================================
+2026-01-28 10:30:49 | INFO     | mia.api | 📦 Initializing database...
+2026-01-28 10:30:49 | INFO     | mia.api.db | Database initialized: ./data/mia_violations.db
+2026-01-28 10:30:49 | INFO     | mia.api |    Database ready ✓
+2026-01-28 10:30:49 | INFO     | mia.api | 🤖 Loading AI model...
+2026-01-28 10:30:49 | INFO     | mia.api.state | Model loaded on mps
+2026-01-28 10:30:49 | INFO     | mia.api |    Model loaded: weights/best_mia.pt ✓
+2026-01-28 10:30:49 | INFO     | mia.api |    Directories initialized ✓
+2026-01-28 10:30:49 | INFO     | mia.api | ============================================================
+2026-01-28 10:30:49 | INFO     | mia.api | ✅ MIA Backend API Ready!
+2026-01-28 10:30:49 | INFO     | mia.api |    API Docs: http://0.0.0.0:8000/docs
+2026-01-28 10:30:49 | INFO     | mia.api | ============================================================
+2026-01-28 10:30:53 | INFO     | mia.api | GET /dashboard | Status: 200 | Duration: 0.7ms
+2026-01-28 10:30:55 | INFO     | mia.api | GET /dashboard | Status: 200 | Duration: 0.3ms
+2026-01-28 10:30:56 | INFO     | mia.api | GET /dashboard | Status: 200 | Duration: 0.3ms
+2026-01-28 10:31:02 | INFO     | mia.api | GET /dashboard | Status: 200 | Duration: 1.0ms
+2026-01-28 10:31:10 | INFO     | mia.api | POST /api/v1/detect/video | Status: 200 | Duration: 26.9ms
+2026-01-28 10:31:10 | INFO     | mia.api | GET /api/v1/detect/video/2144c015 | Status: 200 | Duration: 0.5ms
+2026-01-28 10:31:11 | INFO     | mia.api | GET /api/v1/detect/video/2144c015 | Status: 200 | Duration: 0.2ms
+2026-01-28 10:31:12 | INFO     | mia.api | GET /api/v1/detect/video/2144c015 | Status: 200 | Duration: 0.2ms
+2026-01-28 10:31:13 | INFO     | mia.api | GET /api/v1/detect/video/2144c015 | Status: 200 | Duration: 0.3ms
+2026-01-28 10:31:14 | INFO     | mia.api | GET /api/v1/detect/video/2144c015 | Status: 200 | Duration: 0.2ms
+2026-01-28 10:31:15 | INFO     | mia.api | GET /api/v1/detect/video/2144c015 | Status: 200 | Duration: 0.2ms
+2026-01-28 10:31:16 | INFO     | mia.api | GET /api/v1/detect/video/2144c015 | Status: 200 | Duration: 0.2ms
+2026-01-28 10:31:17 | INFO     | mia.api | GET /api/v1/detect/video/2144c015 | Status: 200 | Duration: 0.2ms
+2026-01-28 10:31:18 | INFO     | mia.api | GET /api/v1/detect/video/2144c015 | Status: 200 | Duration: 0.2ms
+2026-01-28 10:31:19 | INFO     | mia.api | GET /api/v1/detect/video/2144c015 | Status: 200 | Duration: 0.2ms
+2026-01-28 10:31:20 | INFO     | mia.api | GET /api/v1/detect/video/2144c015 | Status: 200 | Duration: 0.9ms
+2026-01-28 10:31:20 | INFO     | mia.api | GET /outputs/processed_2144c015.mp4 | Status: 206 | Duration: 5.2ms
+2026-01-28 10:31:20 | INFO     | mia.api | GET /outputs/processed_2144c015.mp4 | Status: 206 | Duration: 1.4ms
+2026-01-28 10:31:20 | INFO     | mia.api | GET /outputs/processed_2144c015.mp4 | Status: 304 | Duration: 0.7ms
+2026-01-28 10:31:20 | INFO     | mia.api | GET /outputs/processed_2144c015.mp4 | Status: 206 | Duration: 0.6ms
+2026-01-28 10:37:41 | INFO     | mia.api | 🛑 MIA Backend API Shutting down...
+2026-01-28 10:37:41 | INFO     | mia.api.db | Database connection closed
+2026-01-28 10:37:41 | INFO     | mia.api | 👋 Shutdown complete
+2026-01-28 10:41:38 | INFO     | mia.api | ============================================================
+2026-01-28 10:41:38 | INFO     | mia.api | 🚀 MIA Backend API Starting...
+2026-01-28 10:41:38 | INFO     | mia.api | ============================================================
+2026-01-28 10:41:38 | INFO     | mia.api | 📦 Initializing database...
+2026-01-28 10:41:38 | INFO     | mia.api.db | Database initialized: ./data/mia_violations.db
+2026-01-28 10:41:38 | INFO     | mia.api |    Database ready ✓
+2026-01-28 10:41:38 | INFO     | mia.api | 🤖 Loading AI model...
+2026-01-28 10:41:38 | INFO     | mia.api.state | Model loaded on mps
+2026-01-28 10:41:38 | INFO     | mia.api |    Model loaded: weights/best_mia.pt ✓
+2026-01-28 10:41:38 | INFO     | mia.api |    Directories initialized ✓
+2026-01-28 10:41:38 | INFO     | mia.api | ============================================================
+2026-01-28 10:41:38 | INFO     | mia.api | ✅ MIA Backend API Ready!
+2026-01-28 10:41:38 | INFO     | mia.api |    API Docs: http://0.0.0.0:8000/docs
+2026-01-28 10:41:38 | INFO     | mia.api | ============================================================
+2026-01-28 10:41:42 | INFO     | mia.api | GET /dashboard | Status: 200 | Duration: 0.4ms
+2026-01-28 10:41:46 | INFO     | mia.api | GET /dashboard | Status: 200 | Duration: 0.8ms
+2026-01-28 10:41:51 | INFO     | mia.api.detection | Video saved: data/uploads/20260128_104151_6c955b90_ScreenRecording_01-27-2026 20-42-24_1.mov (16.7 MB)
+2026-01-28 10:41:51 | INFO     | mia.api | POST /api/v1/detect/video | Status: 200 | Duration: 31.8ms
+2026-01-28 10:41:51 | INFO     | mia.api.detection | Processing video: 1238x702 @ 59.5 FPS, 527 frames
+2026-01-28 10:41:51 | INFO     | mia.api | GET /api/v1/detect/video/6c955b90 | Status: 200 | Duration: 0.4ms
+2026-01-28 10:41:52 | INFO     | mia.api | GET /api/v1/detect/video/6c955b90 | Status: 200 | Duration: 0.2ms
+2026-01-28 10:41:53 | INFO     | mia.api.detection | Job 6c955b90: 18% (100/527)
+2026-01-28 10:41:53 | INFO     | mia.api | GET /api/v1/detect/video/6c955b90 | Status: 200 | Duration: 0.2ms
+2026-01-28 10:41:54 | INFO     | mia.api | GET /api/v1/detect/video/6c955b90 | Status: 200 | Duration: 0.2ms
+2026-01-28 10:41:55 | INFO     | mia.api.detection | Job 6c955b90: 37% (200/527)
+2026-01-28 10:41:55 | INFO     | mia.api | GET /api/v1/detect/video/6c955b90 | Status: 200 | Duration: 0.2ms
+2026-01-28 10:41:56 | INFO     | mia.api.detection | Job 6c955b90: 56% (300/527)
+2026-01-28 10:41:56 | INFO     | mia.api | GET /api/v1/detect/video/6c955b90 | Status: 200 | Duration: 0.2ms
+2026-01-28 10:41:57 | INFO     | mia.api | GET /api/v1/detect/video/6c955b90 | Status: 200 | Duration: 0.2ms
+2026-01-28 10:41:58 | INFO     | mia.api.detection | Job 6c955b90: 75% (400/527)
+2026-01-28 10:41:58 | INFO     | mia.api | GET /api/v1/detect/video/6c955b90 | Status: 200 | Duration: 0.2ms
+2026-01-28 10:41:59 | INFO     | mia.api.detection | Job 6c955b90: 94% (500/527)
+2026-01-28 10:41:59 | INFO     | mia.api | GET /api/v1/detect/video/6c955b90 | Status: 200 | Duration: 0.2ms
+2026-01-28 10:42:02 | INFO     | mia.api.detection | Converted to web-compatible format: data/outputs/web_6c955b90.mp4
+2026-01-28 10:42:02 | INFO     | mia.api.detection | Job 6c955b90 completed: 0 violations found
+2026-01-28 10:42:02 | INFO     | mia.api | GET /api/v1/detect/video/6c955b90 | Status: 200 | Duration: 0.4ms
+2026-01-28 10:42:02 | INFO     | mia.api | GET /outputs/web_6c955b90.mp4 | Status: 206 | Duration: 1.6ms
+2026-01-28 10:42:03 | INFO     | mia.api | GET /outputs/web_6c955b90.mp4 | Status: 304 | Duration: 0.4ms
+2026-01-28 10:42:07 | INFO     | mia.api | GET /outputs/web_6c955b90.mp4 | Status: 304 | Duration: 0.5ms
+2026-01-28 10:42:07 | INFO     | mia.api | GET /outputs/web_6c955b90.mp4 | Status: 206 | Duration: 0.4ms

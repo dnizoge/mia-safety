@@ -1,0 +1,104 @@
+# ═══════════════════════════════════════════════════════════════════════════════
+# MIA - NVIDIA Jetson Requirements (Edge Deployment)
+# ═══════════════════════════════════════════════════════════════════════════════
+#
+# IMPORTANT: NVIDIA Jetson has pre-built wheels that MUST be used.
+# 
+# Prerequisites (installed via JetPack SDK):
+#   - CUDA 11.4+
+#   - cuDNN 8.x
+#   - TensorRT 8.x
+#   - PyTorch (pre-built by NVIDIA)
+#
+# Installation Order:
+#   1. Install JetPack SDK from NVIDIA
+#   2. Install PyTorch from NVIDIA's wheel (see below)
+#   3. pip install -r requirements-jetson.txt
+#
+# PyTorch for Jetson (DO NOT pip install torch directly):
+#   wget https://developer.download.nvidia.com/compute/redist/jp/v51/pytorch/torch-2.1.0-cp310-cp310-linux_aarch64.whl
+#   pip install torch-2.1.0-cp310-cp310-linux_aarch64.whl
+#
+# ═══════════════════════════════════════════════════════════════════════════════
+
+# ─────────────────────────────────────────────────────────────────────────────────
+# CORE: Pre-installed via JetPack (DO NOT INCLUDE)
+# torch, torchvision, tensorrt - installed from NVIDIA wheels
+# ─────────────────────────────────────────────────────────────────────────────────
+
+# ─────────────────────────────────────────────────────────────────────────────────
+# AI/ML: Detection (Jetson-compatible versions)
+# ─────────────────────────────────────────────────────────────────────────────────
+ultralytics>=8.2.0              # YOLOv8 - works with TensorRT export
+onnx>=1.15.0                    # Model export
+# onnxruntime-gpu - use NVIDIA's pre-built wheel for Jetson
+
+# ─────────────────────────────────────────────────────────────────────────────────
+# DATA: Lightweight Processing
+# ─────────────────────────────────────────────────────────────────────────────────
+numpy>=1.24.0,<2.0.0            # Numerical ops (Jetson-compatible)
+opencv-python-headless>=4.8.0   # Image processing
+Pillow>=10.0.0                  # Image I/O
+
+# ─────────────────────────────────────────────────────────────────────────────────
+# VIDEO: Stream Processing (Optimized for Jetson)
+# ─────────────────────────────────────────────────────────────────────────────────
+av>=10.0.0                      # FFmpeg bindings
+# Note: For best performance on Jetson, use GStreamer pipelines
+# with DeepStream SDK instead of pure Python
+
+# ─────────────────────────────────────────────────────────────────────────────────
+# TRACKING
+# ─────────────────────────────────────────────────────────────────────────────────
+filterpy>=1.4.5                 # Kalman filtering
+lap>=0.4.0                      # Hungarian algorithm
+supervision>=0.16.0             # Detection utilities
+
+# ─────────────────────────────────────────────────────────────────────────────────
+# COMMUNICATION: Edge to Cloud
+# ─────────────────────────────────────────────────────────────────────────────────
+httpx>=0.25.0                   # HTTP client for API calls
+paho-mqtt>=1.6.0                # MQTT for IoT communication
+websockets>=12.0                # WebSocket client
+
+# ─────────────────────────────────────────────────────────────────────────────────
+# CONFIGURATION
+# ─────────────────────────────────────────────────────────────────────────────────
+pydantic>=2.5.0                 # Data validation
+PyYAML>=6.0.1                   # Config parsing
+python-dotenv>=1.0.0            # Environment loading
+
+# ─────────────────────────────────────────────────────────────────────────────────
+# LOGGING
+# ─────────────────────────────────────────────────────────────────────────────────
+loguru>=0.7.0                   # Logging
+
+# ─────────────────────────────────────────────────────────────────────────────────
+# UTILITIES
+# ─────────────────────────────────────────────────────────────────────────────────
+tqdm>=4.66.0                    # Progress bars
+click>=8.1.0                    # CLI
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# JETSON OPTIMIZATION NOTES
+# ═══════════════════════════════════════════════════════════════════════════════
+#
+# 1. TensorRT Engine:
+#    - Export YOLOv8 to TensorRT for 2-3x speedup
+#    - Use FP16 precision for best speed/accuracy tradeoff
+#    - Command: yolo export model=best.pt format=engine half=True device=0
+#
+# 2. Power Modes:
+#    - MaxN mode for maximum performance
+#    - sudo nvpmodel -m 0 && sudo jetson_clocks
+#
+# 3. GStreamer Pipeline (recommended for cameras):
+#    - Use nvarguscamerasrc for CSI cameras
+#    - Use nvv4l2decoder for RTSP streams
+#
+# 4. Memory Management:
+#    - Jetson shares memory between CPU/GPU
+#    - Set cache_size appropriately in DatasetConfig
+#    - Monitor with: tegrastats
+#
+# ═══════════════════════════════════════════════════════════════════════════════

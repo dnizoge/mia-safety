@@ -1,0 +1,134 @@
+# ═══════════════════════════════════════════════════════════════════════════════
+# MIA - Inference Configuration
+# configs/inference.yaml
+# ═══════════════════════════════════════════════════════════════════════════════
+#
+# Configuration for real-time video inference and violation detection.
+#
+# Usage:
+#   python -m ai_core.inference --source video.mp4
+#
+# ═══════════════════════════════════════════════════════════════════════════════
+
+# ─────────────────────────────────────────────────────────────────────────────────
+# MODEL CONFIGURATION
+# ─────────────────────────────────────────────────────────────────────────────────
+weights_path: "weights/best_mia.pt"   # Path to trained model weights
+device: "auto"                         # "auto", "cpu", "cuda", "mps"
+
+# ─────────────────────────────────────────────────────────────────────────────────
+# DETECTION THRESHOLDS
+# ─────────────────────────────────────────────────────────────────────────────────
+confidence_threshold: 0.5              # Minimum confidence for detection (0.0 - 1.0)
+                                       # Lower = more detections (more false positives)
+                                       # Higher = fewer detections (may miss some)
+                                       # Recommended: 0.4 - 0.6
+
+iou_threshold: 0.45                    # NMS IoU threshold
+                                       # Lower = more aggressive suppression
+                                       # Higher = allows overlapping boxes
+                                       # Recommended: 0.4 - 0.5
+
+max_detections: 100                    # Maximum detections per frame
+
+# ─────────────────────────────────────────────────────────────────────────────────
+# CLASS CONFIGURATION
+# ─────────────────────────────────────────────────────────────────────────────────
+# Violation classes (highlighted in RED)
+violation_classes:
+  - "no_helmet"
+  - "no_vest"
+  - "no_harness"
+  - "no-helmet"
+  - "no-vest"
+  - "no-harness"
+  - "head"              # "head" often means no helmet in datasets
+
+# Safe classes (highlighted in GREEN)
+safe_classes:
+  - "helmet"
+  - "vest"
+  - "harness"
+  - "hard-hat"
+  - "hardhat"
+  - "safety-vest"
+
+# ─────────────────────────────────────────────────────────────────────────────────
+# VISUALIZATION SETTINGS
+# ─────────────────────────────────────────────────────────────────────────────────
+show_display: true                     # Show real-time display window
+show_fps: true                         # Show FPS counter
+show_timestamp: true                   # Show timestamp
+show_violation_count: true             # Show violation counter
+
+# Colors (BGR format for OpenCV)
+violation_color: [0, 0, 255]           # RED for violations
+safe_color: [0, 255, 0]                # GREEN for safe equipment
+neutral_color: [255, 165, 0]           # ORANGE for other classes
+text_color: [255, 255, 255]            # WHITE for text
+bg_color: [0, 0, 0]                    # BLACK for backgrounds
+
+# Drawing settings
+box_thickness: 2                       # Bounding box line thickness
+font_scale: 0.6                        # Font size multiplier
+font_thickness: 2                      # Font stroke thickness
+
+# ─────────────────────────────────────────────────────────────────────────────────
+# OUTPUT CONFIGURATION
+# ─────────────────────────────────────────────────────────────────────────────────
+save_video: true                       # Save output video
+output_path: "data/outputs/inference_results.mp4"
+output_fps: null                       # null = match input FPS
+
+# ─────────────────────────────────────────────────────────────────────────────────
+# PERFORMANCE TUNING
+# ─────────────────────────────────────────────────────────────────────────────────
+frame_skip: 0                          # Skip N frames between processing
+                                       # 0 = process every frame
+                                       # 1 = process every other frame
+                                       # Increase for slow hardware
+
+resize_width: null                     # Resize input width (null = original)
+resize_height: null                    # Resize input height (null = original)
+                                       # Smaller = faster but less accurate
+
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# HARDWARE-SPECIFIC PRESETS
+# ═══════════════════════════════════════════════════════════════════════════════
+#
+# ─────────────────────────────────────────────────────────────────────────────────
+# PRESET: MacBook Air M1/M2 (8GB RAM) - Conservative
+# ─────────────────────────────────────────────────────────────────────────────────
+# frame_skip: 1                        # Process every other frame
+# resize_width: 640
+# resize_height: 480
+# confidence_threshold: 0.5
+#
+# ─────────────────────────────────────────────────────────────────────────────────
+# PRESET: MacBook Pro M1/M2/M3 - Balanced
+# ─────────────────────────────────────────────────────────────────────────────────
+# frame_skip: 0
+# resize_width: null                   # Use original size
+# resize_height: null
+# confidence_threshold: 0.5
+#
+# ─────────────────────────────────────────────────────────────────────────────────
+# PRESET: NVIDIA GPU - Maximum Quality
+# ─────────────────────────────────────────────────────────────────────────────────
+# frame_skip: 0
+# resize_width: null
+# resize_height: null
+# confidence_threshold: 0.4
+# max_detections: 300
+#
+# ─────────────────────────────────────────────────────────────────────────────────
+# PRESET: NVIDIA Jetson Edge - Optimized for Real-time
+# ─────────────────────────────────────────────────────────────────────────────────
+# frame_skip: 0
+# resize_width: 640
+# resize_height: 640
+# confidence_threshold: 0.5
+# max_detections: 50
+#
+# ═══════════════════════════════════════════════════════════════════════════════
