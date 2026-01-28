@@ -1,11 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MIA</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500&display=swap" rel="stylesheet">
-    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <title>MIA - Mobil İş Sağlığı ve Güvenliği Aracı</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -20,12 +19,16 @@
             --border: #1f1f1f;
             --border-light: #2a2a2a;
             --text: #ffffff;
-            --text-secondary: #737373;
-            --text-muted: #404040;
+            --text-secondary: #a0a0a0;
+            --text-muted: #606060;
             --accent: #F59E0B;
-            --accent-dim: rgba(245, 158, 11, 0.08);
+            --accent-dim: rgba(245, 158, 11, 0.1);
             --success: #22c55e;
             --danger: #ef4444;
+        }
+        
+        html {
+            scroll-behavior: smooth;
         }
         
         body {
@@ -44,16 +47,16 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 64px;
+            height: 72px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0 40px;
+            padding: 0 60px;
             background: rgba(10, 10, 10, 0.9);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--border);
-            z-index: 100;
+            z-index: 1000;
         }
         
         .logo {
@@ -63,58 +66,93 @@
         }
         
         .logo svg {
-            width: 32px;
-            height: 32px;
+            width: 36px;
+            height: 36px;
         }
         
         .logo-text {
-            font-size: 15px;
+            font-size: 18px;
             font-weight: 400;
-            letter-spacing: 5px;
+            letter-spacing: 6px;
             color: var(--accent);
         }
         
-        .nav-status {
+        .nav-links {
             display: flex;
             align-items: center;
-            gap: 8px;
-            font-size: 11px;
+            gap: 50px;
+        }
+        
+        .nav-links a {
             color: var(--text-secondary);
-            letter-spacing: 1.5px;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 400;
+            letter-spacing: 1px;
             text-transform: uppercase;
+            transition: color 0.3s;
         }
         
-        .status-dot {
-            width: 5px;
-            height: 5px;
-            border-radius: 50%;
-            background: var(--success);
+        .nav-links a:hover {
+            color: var(--text);
         }
         
-        /* Main Content */
-        main {
-            padding-top: 64px;
-            min-height: 100vh;
+        .nav-cta {
+            background: var(--accent);
+            color: #000;
+            padding: 12px 28px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: all 0.3s;
         }
         
-        .container {
-            max-width: 1300px;
-            margin: 0 auto;
-            padding: 50px 40px;
+        .nav-cta:hover {
+            background: #d97706;
+            color: #000;
         }
         
         /* Hero Section */
         .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
             text-align: center;
-            padding: 70px 0 80px;
+            padding: 120px 40px 80px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(245, 158, 11, 0.03) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        
+        .hero-icon {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 40px;
+            opacity: 0.9;
         }
         
         .hero h1 {
-            font-size: clamp(28px, 4vw, 42px);
+            font-size: clamp(42px, 6vw, 72px);
             font-weight: 200;
             letter-spacing: -0.03em;
-            margin-bottom: 14px;
-            line-height: 1.2;
+            margin-bottom: 24px;
+            line-height: 1.1;
         }
         
         .hero h1 span {
@@ -122,41 +160,255 @@
         }
         
         .hero p {
-            font-size: 14px;
+            font-size: 18px;
             color: var(--text-secondary);
             font-weight: 300;
-            max-width: 420px;
-            margin: 0 auto;
-            line-height: 1.7;
+            max-width: 600px;
+            line-height: 1.8;
+            margin-bottom: 50px;
         }
         
-        /* Stats Row */
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .btn-primary {
+            background: var(--accent);
+            color: #000;
+            padding: 16px 40px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn-primary:hover {
+            background: #d97706;
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: var(--text);
+            padding: 16px 40px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 400;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: all 0.3s;
+            border: 1px solid var(--border-light);
+        }
+        
+        .btn-secondary:hover {
+            border-color: var(--text-muted);
+            background: var(--bg-card);
+        }
+        
+        /* Section Styles */
+        section {
+            padding: 120px 60px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .section-label {
+            font-size: 11px;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 20px;
+        }
+        
+        .section-title {
+            font-size: clamp(32px, 4vw, 48px);
+            font-weight: 200;
+            letter-spacing: -0.02em;
+            margin-bottom: 60px;
+        }
+        
+        /* Company Section */
+        #company {
+            background: var(--bg);
+            border-top: 1px solid var(--border);
+        }
+        
+        .company-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+        
+        .company-image {
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            aspect-ratio: 4/3;
+        }
+        
+        .company-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(20%);
+            transition: filter 0.5s;
+        }
+        
+        .company-image:hover img {
+            filter: grayscale(0%);
+        }
+        
+        .company-image::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            pointer-events: none;
+        }
+        
+        .company-text h3 {
+            font-size: 28px;
+            font-weight: 300;
+            margin-bottom: 30px;
+            line-height: 1.4;
+        }
+        
+        .company-text p {
+            font-size: 16px;
+            color: var(--text-secondary);
+            line-height: 1.9;
+            margin-bottom: 20px;
+        }
+        
+        .company-features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-top: 40px;
+        }
+        
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+        }
+        
+        .feature-icon {
+            width: 24px;
+            height: 24px;
+            color: var(--accent);
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+        
+        .feature-item span {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+        
+        /* Demo Section */
+        #demo {
+            background: var(--bg-elevated);
+            border-top: 1px solid var(--border);
+            padding: 120px 0;
+            max-width: 100%;
+        }
+        
+        .demo-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 60px;
+        }
+        
+        .demo-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .demo-frame {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+        }
+        
+        .demo-toolbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 24px;
+            border-bottom: 1px solid var(--border);
+            background: var(--bg);
+        }
+        
+        .demo-dots {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .demo-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--border-light);
+        }
+        
+        .demo-dot.red { background: #ef4444; }
+        .demo-dot.yellow { background: #f59e0b; }
+        .demo-dot.green { background: #22c55e; }
+        
+        .demo-url {
+            font-size: 12px;
+            color: var(--text-muted);
+            letter-spacing: 0.5px;
+        }
+        
+        .demo-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 11px;
+            color: var(--success);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .demo-status::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            background: var(--success);
+            border-radius: 50%;
+        }
+        
+        /* Stats Row in Demo */
         .stats {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 1px;
             background: var(--border);
-            border-radius: 10px;
-            overflow: hidden;
-            margin-bottom: 50px;
         }
         
         .stat {
             background: var(--bg-card);
-            padding: 28px 24px;
+            padding: 32px 24px;
             text-align: center;
-            transition: background 0.3s;
-        }
-        
-        .stat:hover {
-            background: var(--bg-elevated);
         }
         
         .stat-value {
-            font-size: 32px;
+            font-size: 36px;
             font-weight: 200;
-            color: var(--text);
-            margin-bottom: 6px;
+            margin-bottom: 8px;
             font-variant-numeric: tabular-nums;
         }
         
@@ -171,16 +423,16 @@
             letter-spacing: 1.5px;
         }
         
-        /* Main Grid */
-        .grid {
+        /* Demo Grid */
+        .demo-grid {
             display: grid;
             grid-template-columns: 1fr 340px;
             gap: 20px;
+            padding: 24px;
         }
         
-        /* Card Base */
-        .card {
-            background: var(--bg-card);
+        .video-card {
+            background: var(--bg);
             border: 1px solid var(--border);
             border-radius: 10px;
             overflow: hidden;
@@ -190,7 +442,7 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 18px 22px;
+            padding: 16px 20px;
             border-bottom: 1px solid var(--border);
         }
         
@@ -199,552 +451,463 @@
             text-transform: uppercase;
             letter-spacing: 1.5px;
             color: var(--text-secondary);
-            font-weight: 400;
         }
         
-        /* Video Section */
-        .video-container {
-            position: relative;
+        .video-area {
             aspect-ratio: 16/9;
             background: #000;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
+            gap: 20px;
         }
         
-        .video-container video {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-        }
-        
-        .video-placeholder {
-            text-align: center;
+        .video-area svg {
+            width: 48px;
+            height: 48px;
             color: var(--text-muted);
-            padding: 20px;
         }
         
-        .video-placeholder svg {
-            width: 40px;
-            height: 40px;
-            margin-bottom: 16px;
-            opacity: 0.25;
-            stroke-width: 1;
+        .video-area p {
+            font-size: 14px;
+            color: var(--text-muted);
         }
         
-        .video-placeholder p {
-            font-size: 12px;
-            margin-bottom: 24px;
-            color: var(--text-secondary);
-        }
-        
-        /* Upload Button */
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 12px 24px;
-            background: transparent;
-            border: 1px solid var(--border-light);
-            color: var(--text);
-            font-family: inherit;
-            font-size: 11px;
-            font-weight: 400;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: all 0.2s;
-            border-radius: 5px;
-        }
-        
-        .btn:hover {
-            border-color: var(--accent);
-            color: var(--accent);
-        }
-        
-        .btn-primary {
-            border-color: var(--accent);
-            color: var(--accent);
-        }
-        
-        .btn-primary:hover {
+        .upload-btn {
             background: var(--accent);
-            color: var(--bg);
-        }
-        
-        .btn svg {
-            width: 14px;
-            height: 14px;
-        }
-        
-        /* Processing State */
-        .processing {
-            text-align: center;
-            padding: 50px 20px;
-        }
-        
-        .spinner {
-            width: 36px;
-            height: 36px;
-            border: 1.5px solid var(--border);
-            border-top-color: var(--accent);
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
-            margin: 0 auto 20px;
-        }
-        
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-        
-        .processing-text {
+            color: #000;
+            padding: 12px 32px;
+            border-radius: 6px;
             font-size: 12px;
-            color: var(--text-secondary);
-            margin-bottom: 6px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
         }
         
-        .processing-percent {
-            font-size: 20px;
-            font-weight: 200;
-            color: var(--accent);
+        .upload-btn:hover {
+            background: #d97706;
         }
         
-        .progress-bar {
-            width: 180px;
-            height: 1px;
-            background: var(--border);
-            margin: 14px auto 0;
+        .detections-card {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 10px;
             overflow: hidden;
         }
         
-        .progress-fill {
-            height: 100%;
-            background: var(--accent);
-            transition: width 0.3s;
-        }
-        
-        /* Video Footer */
-        .card-footer {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 14px 22px;
-            border-top: 1px solid var(--border);
-        }
-        
-        .video-meta {
-            font-size: 11px;
-            color: var(--text-muted);
-            letter-spacing: 0.5px;
-        }
-        
-        /* Alerts Section */
-        .alerts-section {
-            display: flex;
-            flex-direction: column;
-            max-height: 540px;
-        }
-        
-        .alerts-count {
-            font-size: 10px;
-            padding: 3px 8px;
-            background: var(--accent-dim);
-            color: var(--accent);
-            border-radius: 10px;
-        }
-        
-        .alerts-list {
-            flex: 1;
-            overflow-y: auto;
-            padding: 6px;
-        }
-        
-        .alerts-list::-webkit-scrollbar {
-            width: 3px;
-        }
-        
-        .alerts-list::-webkit-scrollbar-track {
-            background: transparent;
-        }
-        
-        .alerts-list::-webkit-scrollbar-thumb {
-            background: var(--border-light);
-            border-radius: 3px;
-        }
-        
-        .alert-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 12px;
-            padding: 14px 16px;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: background 0.15s;
-            margin-bottom: 2px;
-        }
-        
-        .alert-item:hover {
-            background: var(--bg-elevated);
-        }
-        
-        .alert-dot {
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            margin-top: 5px;
-            flex-shrink: 0;
-        }
-        
-        .alert-dot.violation { background: var(--danger); }
-        .alert-dot.safe { background: var(--success); }
-        
-        .alert-content {
-            flex: 1;
-            min-width: 0;
-        }
-        
-        .alert-type {
-            font-size: 12px;
-            font-weight: 400;
-            margin-bottom: 3px;
-            color: var(--text);
-        }
-        
-        .alert-meta {
-            font-size: 10px;
-            color: var(--text-muted);
-        }
-        
-        .alert-time {
-            font-size: 11px;
-            color: var(--text-secondary);
-            font-variant-numeric: tabular-nums;
-        }
-        
-        /* Empty State */
         .empty-state {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 280px;
+            padding: 60px 20px;
             color: var(--text-muted);
-            font-size: 12px;
+            gap: 12px;
         }
         
         .empty-state svg {
-            width: 28px;
-            height: 28px;
-            margin-bottom: 12px;
-            opacity: 0.25;
-            stroke-width: 1.5;
+            width: 40px;
+            height: 40px;
+            opacity: 0.5;
         }
         
-        /* Summary Footer */
-        .summary-footer {
-            display: flex;
-            justify-content: space-around;
-            padding: 16px 22px;
+        /* Contact Section */
+        #contact {
+            background: var(--bg);
             border-top: 1px solid var(--border);
         }
         
-        .summary-item {
-            text-align: center;
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
         }
         
-        .summary-value {
-            font-size: 18px;
-            font-weight: 300;
-            margin-bottom: 4px;
+        .contact-image {
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            aspect-ratio: 4/3;
         }
         
-        .summary-value.danger { color: var(--danger); }
-        .summary-value.success { color: var(--success); }
+        .contact-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(20%);
+            transition: filter 0.5s;
+        }
         
-        .summary-label {
-            font-size: 9px;
-            color: var(--text-muted);
-            text-transform: uppercase;
+        .contact-image:hover img {
+            filter: grayscale(0%);
+        }
+        
+        .contact-image::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            pointer-events: none;
+        }
+        
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .contact-company {
+            margin-bottom: 50px;
+            padding-bottom: 40px;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .contact-company h4 {
+            font-size: 14px;
+            font-weight: 400;
+            color: var(--accent);
+            margin-bottom: 16px;
             letter-spacing: 1px;
+        }
+        
+        .contact-company a {
+            font-size: 20px;
+            color: var(--text);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .contact-company a:hover {
+            color: var(--accent);
+        }
+        
+        .team-members {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+        
+        .team-member h4 {
+            font-size: 18px;
+            font-weight: 400;
+            margin-bottom: 16px;
+        }
+        
+        .team-member p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .team-member a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .team-member a:hover {
+            color: var(--accent);
+        }
+        
+        .team-member svg {
+            width: 16px;
+            height: 16px;
+            color: var(--text-muted);
         }
         
         /* Footer */
         footer {
             text-align: center;
-            padding: 50px 40px;
-            margin-top: 60px;
-        }
-        
-        footer p {
-            font-size: 11px;
+            padding: 40px;
+            border-top: 1px solid var(--border);
+            font-size: 12px;
             color: var(--text-muted);
-            letter-spacing: 0.5px;
+            letter-spacing: 1px;
         }
         
         /* Responsive */
         @media (max-width: 1024px) {
-            .grid {
+            nav {
+                padding: 0 30px;
+            }
+            
+            .nav-links {
+                gap: 30px;
+            }
+            
+            section {
+                padding: 80px 30px;
+            }
+            
+            .company-content,
+            .contact-content {
+                grid-template-columns: 1fr;
+                gap: 50px;
+            }
+            
+            .demo-grid {
                 grid-template-columns: 1fr;
             }
             
-            .alerts-section {
-                max-height: 400px;
+            .team-members {
+                grid-template-columns: 1fr;
             }
         }
         
         @media (max-width: 768px) {
+            nav {
+                padding: 0 20px;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .hero {
+                padding: 100px 20px 60px;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                width: 100%;
+                max-width: 300px;
+            }
+            
             .stats {
                 grid-template-columns: repeat(2, 1fr);
             }
             
-            nav { padding: 0 24px; }
-            .container { padding: 40px 24px; }
-        }
-        
-        @media (max-width: 480px) {
-            .stats {
+            .company-features {
                 grid-template-columns: 1fr;
             }
-            
-            .hero { padding: 40px 0 50px; }
         }
-        
-        .hidden { display: none; }
     </style>
 </head>
-<body x-data="miaApp()">
+<body>
     <!-- Navigation -->
     <nav>
         <div class="logo">
-            <svg viewBox="0 0 200 200" fill="none">
-                <path d="M100 20 L165 45 L165 95 C165 145 138 175 100 190 C62 175 35 145 35 95 L35 45 Z" 
-                      stroke="#F59E0B" stroke-width="6" stroke-linejoin="round"/>
-                <path d="M70 100 L90 122 L130 78" 
-                      stroke="#F59E0B" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+            <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M20 4L6 10V20C6 28.28 12.04 35.92 20 38C27.96 35.92 34 28.28 34 20V10L20 4Z" stroke="#F59E0B" stroke-width="2" fill="none"/>
+                <path d="M14 20L18 24L26 16" stroke="#F59E0B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
             <span class="logo-text">MIA</span>
         </div>
-        <div class="nav-status">
-            <span class="status-dot"></span>
-            <span>Active</span>
+        
+        <div class="nav-links">
+            <a href="#company">Şirket</a>
+            <a href="#demo">Demo</a>
+            <a href="#contact">İletişim</a>
         </div>
+        
+        <a href="#demo" class="nav-cta">Demo İste</a>
     </nav>
 
-    <main>
-        <div class="container">
-            <!-- Hero -->
-            <section class="hero">
-                <h1>Construction <span>Safety</span> Intelligence</h1>
-                <p>AI-powered detection for workplace safety compliance. Analyze footage for violations in real-time.</p>
-            </section>
+    <!-- Hero Section -->
+    <section class="hero">
+        <svg class="hero-icon" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M40 8L12 20V40C12 56.56 24.08 71.84 40 76C55.92 71.84 68 56.56 68 40V20L40 8Z" stroke="#F59E0B" stroke-width="2" fill="none"/>
+            <path d="M28 40L36 48L52 32" stroke="#F59E0B" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        
+        <h1>Mobil <span>İş Sağlığı</span><br>ve Güvenliği Aracı</h1>
+        
+        <p>Yapay zeka destekli güvenlik ihlali tespiti. Şantiye görüntülerini gerçek zamanlı analiz edin, iş kazalarını önleyin.</p>
+        
+        <div class="hero-buttons">
+            <a href="#demo" class="btn-primary">Demoyu Dene</a>
+            <a href="#company" class="btn-secondary">Daha Fazla Bilgi</a>
+        </div>
+    </section>
 
-            <!-- Stats -->
-            <div class="stats">
-                <div class="stat">
-                    <div class="stat-value accent" x-text="safetyScore + '%'">100%</div>
-                    <div class="stat-label">Safety Score</div>
-                </div>
-                <div class="stat">
-                    <div class="stat-value" x-text="processedFrames.toLocaleString()">0</div>
-                    <div class="stat-label">Frames Analyzed</div>
-                </div>
-                <div class="stat">
-                    <div class="stat-value danger" x-text="totalViolations">0</div>
-                    <div class="stat-label">Violations</div>
-                </div>
-                <div class="stat">
-                    <div class="stat-value success" x-text="totalSafe">0</div>
-                    <div class="stat-label">Compliant</div>
+    <!-- Company Section -->
+    <section id="company">
+        <div class="section-label">Şirket</div>
+        <h2 class="section-title">Vizyonumuz</h2>
+        
+        <div class="company-content">
+            <div class="company-image">
+                <img src="founders_company.jpg" alt="MIA Kurucuları">
+            </div>
+            
+            <div class="company-text">
+                <h3>İnşaat Sektöründe Güvenliği Yeniden Tanımlıyoruz</h3>
+                
+                <p>MIA, inşaat sektörü başta olmak üzere yüksek riskli sektörlerde iş sağlığı ve güvenliği süreçlerini dönüştürmek amacıyla kurulmuştur.</p>
+                
+                <p>Şantiyelerde uygulanan iş sağlığı ve güvenliği kontrolleri geleneksel olarak insan gözlemine dayalı olarak yürütülmektedir. Bu durum, hem yüksek iş gücü maliyetlerine hem de kaçınılmaz insan hatalarına yol açmaktadır.</p>
+                
+                <p>MIA olarak bu süreci yapay zeka ile otomatikleştiriyoruz. Sistemimiz, işçilerin baret takmaması, yüksekte emniyet kemeri kullanmaması gibi güvenlik ihlallerini anlık olarak tespit eder, sisteme kaydeder ve gerekli bildirimleri otomatik olarak oluşturur.</p>
+                
+                <div class="company-features">
+                    <div class="feature-item">
+                        <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 12l2 2 4-4"/>
+                            <circle cx="12" cy="12" r="10"/>
+                        </svg>
+                        <span>Anlık ihlal tespiti</span>
+                    </div>
+                    <div class="feature-item">
+                        <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                        </svg>
+                        <span>Otomatik raporlama</span>
+                    </div>
+                    <div class="feature-item">
+                        <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="11" width="18" height="11" rx="2"/>
+                            <path d="M7 11V7a5 5 0 0110 0v4"/>
+                        </svg>
+                        <span>7/24 güvenlik izleme</span>
+                    </div>
+                    <div class="feature-item">
+                        <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
+                        </svg>
+                        <span>Yapay zeka destekli</span>
+                    </div>
                 </div>
             </div>
+        </div>
+    </section>
 
-            <!-- Main Grid -->
-            <div class="grid">
-                <!-- Video Section -->
-                <div class="card">
-                    <div class="card-header">
-                        <span class="card-title">Analysis</span>
-                        <span class="video-meta" x-show="videoLoaded" x-text="videoResolution"></span>
+    <!-- Demo Section -->
+    <section id="demo">
+        <div class="demo-container">
+            <div class="demo-header">
+                <div class="section-label">Demo</div>
+                <h2 class="section-title">Construction Safety Intelligence</h2>
+                <p style="color: var(--text-secondary); max-width: 600px; margin: -30px auto 0; font-size: 16px; line-height: 1.7;">AI-powered detection for workplace safety compliance. Analyze footage for violations in real-time.</p>
+            </div>
+            
+            <div class="demo-frame">
+                <div class="demo-toolbar">
+                    <div class="demo-dots">
+                        <div class="demo-dot red"></div>
+                        <div class="demo-dot yellow"></div>
+                        <div class="demo-dot green"></div>
                     </div>
-                    
-                    <div class="video-container">
-                        <!-- Placeholder -->
-                        <div class="video-placeholder" x-show="!processing && !videoLoaded">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                                <path d="M15 10l5 3-5 3V10z"/>
-                                <rect x="3" y="5" width="14" height="14" rx="2"/>
-                            </svg>
-                            <p>Upload footage to begin</p>
-                            <input type="file" id="videoInput" accept="video/*" class="hidden" @change="handleUpload">
-                            <label for="videoInput" class="btn btn-primary">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M12 5v14M5 12h14"/>
-                                </svg>
-                                Upload
-                            </label>
-                        </div>
-                        
-                        <!-- Processing -->
-                        <div class="processing" x-show="processing">
-                            <div class="spinner"></div>
-                            <div class="processing-text">Analyzing</div>
-                            <div class="processing-percent" x-text="progress + '%'">0%</div>
-                            <div class="progress-bar">
-                                <div class="progress-fill" :style="'width:' + progress + '%'"></div>
-                            </div>
-                        </div>
-                        
-                        <!-- Video -->
-                        <video x-ref="videoPlayer" x-show="videoLoaded && !processing" controls></video>
+                    <div class="demo-url">mia-safety.app/demo</div>
+                    <div class="demo-status">Active</div>
+                </div>
+                
+                <div class="stats">
+                    <div class="stat">
+                        <div class="stat-value accent">100%</div>
+                        <div class="stat-label">Safety Score</div>
                     </div>
-                    
-                    <div class="card-footer">
-                        <span class="video-meta" x-text="processingTime ? processingTime + 's' : '—'"></span>
-                        <label for="videoInput" class="btn" x-show="videoLoaded">
-                            New
-                        </label>
+                    <div class="stat">
+                        <div class="stat-value">0</div>
+                        <div class="stat-label">Frames Analyzed</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value danger">0</div>
+                        <div class="stat-label">Violations</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value success">0</div>
+                        <div class="stat-label">Compliant</div>
                     </div>
                 </div>
-
-                <!-- Alerts -->
-                <div class="card alerts-section">
-                    <div class="card-header">
-                        <span class="card-title">Detections</span>
-                        <span class="alerts-count" x-show="violations.length > 0" x-text="violations.length"></span>
+                
+                <div class="demo-grid">
+                    <div class="video-card">
+                        <div class="card-header">
+                            <span class="card-title">Analysis</span>
+                        </div>
+                        <div class="video-area">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <rect x="2" y="4" width="20" height="16" rx="2"/>
+                                <path d="M10 9l5 3-5 3V9z"/>
+                            </svg>
+                            <p>Upload footage to begin</p>
+                            <button class="upload-btn">Upload</button>
+                        </div>
                     </div>
                     
-                    <div class="alerts-list">
-                        <div class="empty-state" x-show="violations.length === 0">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <div class="detections-card">
+                        <div class="card-header">
+                            <span class="card-title">Detections</span>
+                        </div>
+                        <div class="empty-state">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                                 <circle cx="12" cy="12" r="10"/>
                                 <path d="M9 12l2 2 4-4"/>
                             </svg>
                             <span>No detections</span>
                         </div>
-                        
-                        <template x-for="(alert, i) in violations" :key="i">
-                            <div class="alert-item" @click="seekTo(alert.timestamp_seconds)">
-                                <div class="alert-dot violation"></div>
-                                <div class="alert-content">
-                                    <div class="alert-type" x-text="formatClass(alert.class_name)"></div>
-                                    <div class="alert-meta" x-text="Math.round(alert.confidence * 100) + '%'"></div>
-                                </div>
-                                <div class="alert-time" x-text="alert.timestamp_formatted"></div>
-                            </div>
-                        </template>
-                    </div>
-                    
-                    <div class="summary-footer" x-show="violations.length > 0">
-                        <div class="summary-item">
-                            <div class="summary-value danger" x-text="totalViolations">0</div>
-                            <div class="summary-label">Violations</div>
-                        </div>
-                        <div class="summary-item">
-                            <div class="summary-value success" x-text="totalSafe">0</div>
-                            <div class="summary-label">Safe</div>
-                        </div>
                     </div>
                 </div>
             </div>
         </div>
+    </section>
 
-        <footer>
-            <p>MIA · Mobil İş Sağlığı ve Güvenliği Aracı</p>
-        </footer>
-    </main>
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="section-label">İletişim</div>
+        <h2 class="section-title">Bize Ulaşın</h2>
+        
+        <div class="contact-content">
+            <div class="contact-image">
+                <img src="founders_contact.jpg" alt="MIA Kurucuları - Deniz Öge ve Ege Türker">
+            </div>
+            
+            <div class="contact-info">
+                <div class="contact-company">
+                    <h4>Şirket</h4>
+                    <a href="mailto:miaissagligi@gmail.com">miaissagligi@gmail.com</a>
+                </div>
+                
+                <div class="team-members">
+                    <div class="team-member">
+                        <h4>Deniz Öge</h4>
+                        <p>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                                <polyline points="22,6 12,13 2,6"/>
+                            </svg>
+                            <a href="mailto:dennizoge@gmail.com">dennizoge@gmail.com</a>
+                        </p>
+                        <p>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/>
+                            </svg>
+                            <a href="tel:+18573852649">+1 857 385 26 49</a>
+                        </p>
+                    </div>
+                    
+                    <div class="team-member">
+                        <h4>Ege Türker</h4>
+                        <p>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                                <polyline points="22,6 12,13 2,6"/>
+                            </svg>
+                            <a href="mailto:egeturker@yahoo.com">egeturker@yahoo.com</a>
+                        </p>
+                        <p>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/>
+                            </svg>
+                            <a href="tel:+447393495988">+44 7393 495988</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <script>
-        function miaApp() {
-            return {
-                processing: false,
-                videoLoaded: false,
-                progress: 0,
-                jobId: null,
-                violations: [],
-                totalViolations: 0,
-                totalSafe: 0,
-                processedFrames: 0,
-                processingTime: null,
-                safetyScore: 100,
-                videoResolution: '',
-                
-                async handleUpload(e) {
-                    const file = e.target.files[0];
-                    if (!file) return;
-                    
-                    this.processing = true;
-                    this.videoLoaded = false;
-                    this.progress = 0;
-                    this.violations = [];
-                    
-                    const fd = new FormData();
-                    fd.append('file', file);
-                    
-                    try {
-                        const res = await fetch('/api/v1/detect/video?async_processing=true', {
-                            method: 'POST',
-                            body: fd
-                        });
-                        const data = await res.json();
-                        this.jobId = data.job_id;
-                        this.poll();
-                    } catch (err) {
-                        this.processing = false;
-                        console.error(err);
-                    }
-                },
-                
-                async poll() {
-                    if (!this.jobId) return;
-                    
-                    try {
-                        const res = await fetch(`/api/v1/detect/video/${this.jobId}`);
-                        const data = await res.json();
-                        
-                        if (data.status === 'completed') {
-                            this.processing = false;
-                            this.videoLoaded = true;
-                            this.progress = 100;
-                            
-                            if (data.violations) this.violations = data.violations;
-                            if (data.summary) {
-                                this.totalViolations = data.summary.total_violations;
-                                this.totalSafe = data.summary.total_safe_detections;
-                                this.processedFrames = data.summary.processed_frames;
-                                this.processingTime = data.summary.processing_time_seconds;
-                                const t = this.totalViolations + this.totalSafe;
-                                this.safetyScore = t > 0 ? Math.round((this.totalSafe / t) * 100) : 100;
-                            }
-                            if (data.video_info) {
-                                this.videoResolution = `${data.video_info.width}×${data.video_info.height}`;
-                            }
-                            if (data.output_video_url) {
-                                this.$refs.videoPlayer.src = data.output_video_url;
-                            }
-                        } else if (data.status === 'failed') {
-                            this.processing = false;
-                        } else {
-                            const m = data.message.match(/(\d+)%/);
-                            if (m) this.progress = parseInt(m[1]);
-                            setTimeout(() => this.poll(), 1000);
-                        }
-                    } catch (err) {
-                        setTimeout(() => this.poll(), 2000);
-                    }
-                },
-                
-                seekTo(s) {
-                    if (this.$refs.videoPlayer) {
-                        this.$refs.videoPlayer.currentTime = s;
-                        this.$refs.videoPlayer.play();
-                    }
-                },
-                
-                formatClass(n) {
-                    return n.replace(/[_-]/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
-                }
-            }
-        }
-    </script>
+    <!-- Footer -->
+    <footer>
+        <p>MIA · Mobil İş Sağlığı ve Güvenliği Aracı · 2026</p>
+    </footer>
 </body>
 </html>
