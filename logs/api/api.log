@@ -191,3 +191,4 @@
 2026-01-28 10:42:03 | INFO     | mia.api | GET /outputs/web_6c955b90.mp4 | Status: 304 | Duration: 0.4ms
 2026-01-28 10:42:07 | INFO     | mia.api | GET /outputs/web_6c955b90.mp4 | Status: 304 | Duration: 0.5ms
 2026-01-28 10:42:07 | INFO     | mia.api | GET /outputs/web_6c955b90.mp4 | Status: 206 | Duration: 0.4ms
+2026-01-28 10:59:44 | INFO     | mia.api | GET /dashboard | Status: 200 | Duration: 0.5ms
