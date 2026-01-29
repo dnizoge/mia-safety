@@ -28,5 +28,5 @@ RUN mkdir -p data/uploads data/outputs logs/api
 # Expose port
 EXPOSE 8000
 
-# Run the application
-CMD ["uvicorn", "backend_api.main:app", "--host", "0.0.0.0", "--port", "8000"]
+# Run the application (use shell form to interpret $PORT)
+CMD uvicorn backend_api.main:app --host 0.0.0.0 --port ${PORT:-8000}
