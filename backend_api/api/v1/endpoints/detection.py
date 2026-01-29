@@ -1,5 +1,6 @@
 """
-MIA Backend - Detection Endpoints (Optimized for Cloud CPU)
+MIA Backend - Detection Endpoints (ULTRA-FAST for Demo)
+Only processes 5 frames total for quick results.
 """
 
 import os
@@ -107,29 +108,14 @@ async def detect_video(
         "result": None
     }
     
-    if async_processing:
-        background_tasks.add_task(
-            process_video_task,
-            job_id=job_id,
-            video_path=str(upload_path),
-            app_state=app_state,
-            confidence=confidence
-        )
-        
-        return VideoDetectionResponse(
-            job_id=job_id,
-            status="processing",
-            message="Video uploaded. Processing in background.",
-            video_info={"filename": file.filename, "size_mb": len(content) / (1024 * 1024)}
-        )
-    else:
-        result = await process_video_task(
-            job_id=job_id,
-            video_path=str(upload_path),
-            app_state=app_state,
-            confidence=confidence
-        )
-        return result
+    # Always process synchronously for simplicity (fast enough now)
+    result = await process_video_task(
+        job_id=job_id,
+        video_path=str(upload_path),
+        app_state=app_state,
+        confidence=confidence
+    )
+    return result
 
 
 @router.get("/video/{job_id}", response_model=VideoDetectionResponse)
@@ -220,8 +206,8 @@ async def process_video_task(
     confidence: float = 0.5
 ) -> VideoDetectionResponse:
     """
-    Fast video processing - samples frames, no output video.
-    Optimized for cloud CPU deployment.
+    ULTRA-FAST video processing for demo.
+    Only analyzes 5 evenly-spaced frames from the video.
     """
     import time
     start_time = time.time()
@@ -242,16 +228,17 @@ async def process_video_task(
         
         logger.info(f"Processing video: {width}x{height} @ {fps:.1f} FPS, {total_frames} frames, {duration:.1f}s")
         
-        # AGGRESSIVE FRAME SAMPLING for speed
-        # Process only ~2 frames per second max
-        target_samples_per_second = 2
-        frame_interval = max(1, int(fps / target_samples_per_second))
+        # ULTRA-FAST: Only 5 frames spread across the video
+        max_samples = 5
         
-        # Limit total frames to process (max 50 samples for demo)
-        max_samples = 50
-        total_samples = min(max_samples, total_frames // frame_interval)
+        # Calculate which frames to sample (evenly distributed)
+        if total_frames <= max_samples:
+            frames_to_sample = list(range(1, total_frames + 1))
+        else:
+            step = total_frames // max_samples
+            frames_to_sample = [step * i for i in range(1, max_samples + 1)]
         
-        logger.info(f"Sampling every {frame_interval} frames, ~{total_samples} samples total")
+        logger.info(f"Sampling {len(frames_to_sample)} frames: {frames_to_sample}")
         
         violations: List[ViolationEvent] = []
         frames_analyzed = 0
@@ -260,28 +247,17 @@ async def process_video_task(
         
         violation_service = ViolationService()
         
-        frame_count = 0
-        
-        while True:
+        for target_frame in frames_to_sample:
+            # Seek to the target frame
+            cap.set(cv2.CAP_PROP_POS_FRAMES, target_frame - 1)
             ret, frame = cap.read()
+            
             if not ret:
-                break
-            
-            frame_count += 1
-            
-            # Update progress
-            progress = int((frame_count / total_frames) * 100)
-            processing_jobs[job_id]["progress"] = progress
-            
-            # Only process sampled frames
-            if frame_count % frame_interval != 0:
+                logger.warning(f"Could not read frame {target_frame}")
                 continue
             
-            # Stop if we've analyzed enough
-            if frames_analyzed >= max_samples:
-                break
-            
             frames_analyzed += 1
+            logger.info(f"Analyzing frame {target_frame}/{total_frames}")
             
             # Run detection
             detections = await app_state.detect(frame, confidence=confidence)
@@ -290,11 +266,11 @@ async def process_video_task(
                 if det.is_violation:
                     total_violations += 1
                     
-                    timestamp_sec = frame_count / fps
+                    timestamp_sec = target_frame / fps
                     timestamp_fmt = f"{int(timestamp_sec // 60):02d}:{timestamp_sec % 60:05.2f}"
                     
                     violation_event = ViolationEvent(
-                        frame_number=frame_count,
+                        frame_number=target_frame,
                         timestamp_seconds=round(timestamp_sec, 2),
                         timestamp_formatted=timestamp_fmt,
                         class_name=det.class_name,
@@ -305,7 +281,7 @@ async def process_video_task(
                     
                     await violation_service.log_violation(
                         source=video_path,
-                        frame_number=frame_count,
+                        frame_number=target_frame,
                         timestamp=timestamp_sec,
                         class_name=det.class_name,
                         confidence=det.confidence,
@@ -314,9 +290,6 @@ async def process_video_task(
                 
                 elif app_state._is_safe_class(det.class_name):
                     total_safe += 1
-            
-            if frames_analyzed % 10 == 0:
-                logger.info(f"Job {job_id}: analyzed {frames_analyzed}/{total_samples} samples")
         
         cap.release()
         

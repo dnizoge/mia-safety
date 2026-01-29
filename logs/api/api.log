@@ -235,3 +235,20 @@
 2026-01-29 01:36:47 | INFO     | mia.api | ✅ MIA Backend API Ready!
 2026-01-29 01:36:47 | INFO     | mia.api |    API Docs: http://0.0.0.0:8000/docs
 2026-01-29 01:36:47 | INFO     | mia.api | ============================================================
+2026-01-29 01:45:02 | INFO     | mia.api | 🛑 MIA Backend API Shutting down...
+2026-01-29 01:45:02 | INFO     | mia.api.db | Database connection closed
+2026-01-29 01:45:02 | INFO     | mia.api | 👋 Shutdown complete
+2026-01-29 01:45:03 | INFO     | mia.api | ============================================================
+2026-01-29 01:45:03 | INFO     | mia.api | 🚀 MIA Backend API Starting...
+2026-01-29 01:45:03 | INFO     | mia.api | ============================================================
+2026-01-29 01:45:03 | INFO     | mia.api | 📦 Initializing database...
+2026-01-29 01:45:03 | INFO     | mia.api.db | Database initialized: ./data/mia_violations.db
+2026-01-29 01:45:03 | INFO     | mia.api |    Database ready ✓
+2026-01-29 01:45:03 | INFO     | mia.api | 🤖 Loading AI model...
+2026-01-29 01:45:04 | INFO     | mia.api.state | Model loaded on mps
+2026-01-29 01:45:04 | INFO     | mia.api |    Model loaded: weights/best_mia.pt ✓
+2026-01-29 01:45:04 | INFO     | mia.api |    Directories initialized ✓
+2026-01-29 01:45:04 | INFO     | mia.api | ============================================================
+2026-01-29 01:45:04 | INFO     | mia.api | ✅ MIA Backend API Ready!
+2026-01-29 01:45:04 | INFO     | mia.api |    API Docs: http://0.0.0.0:8000/docs
+2026-01-29 01:45:04 | INFO     | mia.api | ============================================================
