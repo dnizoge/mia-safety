@@ -20,7 +20,6 @@ from fastapi.responses import JSONResponse
 from pydantic import BaseModel, Field
 
 from backend_api.core.config import settings
-from backend_api.services.detection_service import DetectionService
 from backend_api.services.violation_service import ViolationService
 
 logger = logging.getLogger("mia.api.detection")
@@ -94,18 +93,6 @@ async def detect_video(
 ):
     """
     Upload and process a video file for safety violations.
-    
-    This endpoint accepts a video file, processes it frame by frame,
-    and returns a detailed report of all detected violations with timestamps.
-    
-    Args:
-        file: Video file (mp4, avi, mov, mkv, webm)
-        confidence: Detection confidence threshold (0.0 - 1.0)
-        save_output: Whether to save annotated output video
-        async_processing: Process asynchronously (returns job_id immediately)
-        
-    Returns:
-        Job ID and status (if async) or full results (if sync)
     """
     app_state = request.app.state.app_state
     
@@ -201,12 +188,6 @@ async def detect_video(
 async def get_video_detection_status(job_id: str):
     """
     Get the status and results of a video detection job.
-    
-    Args:
-        job_id: Job ID returned from POST /detect/video
-        
-    Returns:
-        Job status and results (if complete)
     """
     if job_id not in processing_jobs:
         raise HTTPException(status_code=404, detail="Job not found")
@@ -237,13 +218,6 @@ async def detect_image(
 ):
     """
     Process a single image for safety violations.
-    
-    Args:
-        file: Image file (jpg, png, bmp, webp)
-        confidence: Detection confidence threshold
-        
-    Returns:
-        List of detections with violation flags
     """
     import time
     start_time = time.time()
@@ -315,9 +289,6 @@ async def process_video_task(
 ) -> VideoDetectionResponse:
     """
     Background task for video processing.
-    
-    Processes video frame by frame, detects violations,
-    and generates a detailed report.
     """
     import time
     start_time = time.time()
@@ -345,12 +316,11 @@ async def process_video_task(
         output_path = None
         
         if save_output:
-            output_filename = f"processed_{job_id}.mp4"
+            output_filename = f"processed_{job_id}.avi"  # Use AVI format
             output_path = settings.get_output_path(output_filename)
             
-            # Use H.264 codec for browser compatibility
-            # Try avc1 first (macOS), fallback to mp4v
-            fourcc = cv2.VideoWriter_fourcc(*'avc1')
+            # Use XVID codec which is more widely available
+            fourcc = cv2.VideoWriter_fourcc(*'XVID')
             writer = cv2.VideoWriter(
                 str(output_path),
                 fourcc,
@@ -358,15 +328,23 @@ async def process_video_task(
                 (width, height)
             )
             
-            # Fallback if avc1 doesn't work
+            # Check if writer opened successfully
             if not writer.isOpened():
-                fourcc = cv2.VideoWriter_fourcc(*'mp4v')
+                logger.warning("XVID codec failed, trying MJPG")
+                output_filename = f"processed_{job_id}.avi"
+                output_path = settings.get_output_path(output_filename)
+                fourcc = cv2.VideoWriter_fourcc(*'MJPG')
                 writer = cv2.VideoWriter(
                     str(output_path),
                     fourcc,
                     fps,
                     (width, height)
                 )
+            
+            if not writer.isOpened():
+                logger.warning("VideoWriter failed to open, skipping output video")
+                writer = None
+                save_output = False
         
         # Process frames
         violations: List[ViolationEvent] = []
@@ -376,6 +354,9 @@ async def process_video_task(
         
         # Violation logging service
         violation_service = ViolationService()
+        
+        # Process every Nth frame to speed up (skip frames)
+        frame_skip = max(1, int(fps / 10))  # Process ~10 frames per second
         
         while True:
             ret, frame = cap.read()
@@ -388,45 +369,51 @@ async def process_video_task(
             progress = int((frame_count / total_frames) * 100)
             processing_jobs[job_id]["progress"] = progress
             
-            # Run detection
-            detections = await app_state.detect(frame, confidence=confidence)
-            
-            # Process detections
-            for det in detections:
-                if det.is_violation:
-                    total_violations += 1
-                    
-                    # Calculate timestamp
-                    timestamp_sec = frame_count / fps
-                    timestamp_fmt = f"{int(timestamp_sec // 60):02d}:{timestamp_sec % 60:05.2f}"
-                    
-                    violation_event = ViolationEvent(
-                        frame_number=frame_count,
-                        timestamp_seconds=round(timestamp_sec, 2),
-                        timestamp_formatted=timestamp_fmt,
-                        class_name=det.class_name,
-                        confidence=round(det.confidence, 3),
-                        bbox=list(det.bbox)
-                    )
-                    violations.append(violation_event)
-                    
-                    # Log to database
-                    await violation_service.log_violation(
-                        source=video_path,
-                        frame_number=frame_count,
-                        timestamp=timestamp_sec,
-                        class_name=det.class_name,
-                        confidence=det.confidence,
-                        bbox=det.bbox
-                    )
+            # Only run detection on every Nth frame
+            if frame_count % frame_skip == 0:
+                # Run detection
+                detections = await app_state.detect(frame, confidence=confidence)
                 
-                elif app_state._is_safe_class(det.class_name):
-                    total_safe += 1
-            
-            # Draw on frame and write to output
-            if writer is not None:
-                annotated = draw_detections(frame, detections)
-                writer.write(annotated)
+                # Process detections
+                for det in detections:
+                    if det.is_violation:
+                        total_violations += 1
+                        
+                        # Calculate timestamp
+                        timestamp_sec = frame_count / fps
+                        timestamp_fmt = f"{int(timestamp_sec // 60):02d}:{timestamp_sec % 60:05.2f}"
+                        
+                        violation_event = ViolationEvent(
+                            frame_number=frame_count,
+                            timestamp_seconds=round(timestamp_sec, 2),
+                            timestamp_formatted=timestamp_fmt,
+                            class_name=det.class_name,
+                            confidence=round(det.confidence, 3),
+                            bbox=list(det.bbox)
+                        )
+                        violations.append(violation_event)
+                        
+                        # Log to database
+                        await violation_service.log_violation(
+                            source=video_path,
+                            frame_number=frame_count,
+                            timestamp=timestamp_sec,
+                            class_name=det.class_name,
+                            confidence=det.confidence,
+                            bbox=det.bbox
+                        )
+                    
+                    elif app_state._is_safe_class(det.class_name):
+                        total_safe += 1
+                
+                # Draw on frame and write to output
+                if writer is not None:
+                    annotated = draw_detections(frame, detections)
+                    writer.write(annotated)
+            else:
+                # Write frame without processing
+                if writer is not None:
+                    writer.write(frame)
             
             # Log progress periodically
             if frame_count % 100 == 0:
@@ -436,26 +423,6 @@ async def process_video_task(
         cap.release()
         if writer is not None:
             writer.release()
-        
-        # Convert to browser-compatible format using ffmpeg
-        if output_path and output_path.exists():
-            import subprocess
-            final_output = output_path.parent / f"web_{job_id}.mp4"
-            try:
-                subprocess.run([
-                    'ffmpeg', '-y', '-i', str(output_path),
-                    '-c:v', 'libx264', '-preset', 'fast', '-crf', '23',
-                    '-movflags', '+faststart',  # Enable streaming
-                    '-pix_fmt', 'yuv420p',  # Browser compatible pixel format
-                    str(final_output)
-                ], check=True, capture_output=True, timeout=300)
-                
-                # Remove the original and use the web version
-                output_path.unlink()
-                output_path = final_output
-                logger.info(f"Converted to web-compatible format: {final_output}")
-            except Exception as conv_err:
-                logger.warning(f"FFmpeg conversion failed, using original: {conv_err}")
         
         # Calculate processing stats
         processing_time = time.time() - start_time
@@ -481,7 +448,7 @@ async def process_video_task(
                 fps=round(actual_fps, 2)
             ),
             violations=violations,
-            output_video_url=f"/outputs/{output_path.name}" if output_path else None
+            output_video_url=f"/outputs/{output_path.name}" if output_path and output_path.exists() else None
         )
         
         # Update job status
@@ -495,6 +462,8 @@ async def process_video_task(
         
     except Exception as e:
         logger.error(f"Job {job_id} failed: {e}")
+        import traceback
+        traceback.print_exc()
         processing_jobs[job_id]["status"] = "failed"
         processing_jobs[job_id]["error"] = str(e)
         
